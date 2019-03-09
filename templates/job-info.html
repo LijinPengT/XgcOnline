@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block titile %}
+公开课视频信息 | 学生在线
+    慕课小站
+{% endblock %}
+
+{% load staticfiles %}
+<!--crumbs start-->
+{% block custom_bread %}
+    <section>
+	<div class="wp">
+		<div class="crumbs">
+			<ul>
+				<li><a href="{% url 'index' %}">首页</a>></li>
+                <li><a href="{% url 'job:job_list' %}">公开课程</a>></li>
+				<li><a href="{% url 'job:job_detail' job.id %}">{{ job.name }}</a>></li>
+                <li>岗位信息</li>
+			</ul>
+		</div>
+	</div>
+</section>
+{% endblock %}
+
+{% block custom_css %}
+     <link rel="stylesheet" type="text/css" href="{% static 'css/muke/base.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/common-less.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/cousre/learn-less.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mooc.css' %}" />
+     <link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/common-less.css' %}">
+{% endblock %}
+{% block content %}
+    <div id="main">
+    <div class="course-infos">
+        <div class="w pr">
+            <div style="height: 15px" class="path">
+            </div>
+            <div class="hd">
+                <h2 class="l">&nbsp;&nbsp;{{ job.name }}</h2>
+            </div>
+            <div class="statics clearfix">
+                <div class="static-item ">
+                    <span class="meta-value">{{ job.salary }}</span>
+                    <span class="meta">薪资</span>
+                    <em></em>
+                </div>
+                <div class="static-item">
+                    <span class="meta-value">{{ job.do_time }}</span>
+                    <span class="meta">日期</span>
+                    <em></em>
+                </div>
+                <div class="static-item">
+                    <span class="meta-value">{{ job.people }}</span>
+                    <span class="meta">参加人数</span>
+                    <em></em>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="course-info-main clearfix w has-progress">
+
+        <div class="info-bar clearfix">
+        <div class="content-wrap clearfix">
+            <div class="content">
+                <div class="mod-tab-menu">
+                    <ul class="course-menu clearfix">
+                        <li><a class="ui-tabs-active active" id="learnOn"  href="{% url 'job:job_info' job.id %}"><span>信息</span></a></li>
+                        <li><a id="commentOn" class="" href="#"><span>评论</span></a></li>
+                    </ul>
+                </div>
+                <div id="notice" class="clearfix">
+                    <div class="l"> <strong>岗位公告:</strong> <a  href="javascript:void(0)">易班值班</a> </div>
+                </div>
+
+                <div class="mod-chapters">
+
+                </div>
+            </div>
+            </div>
+        <div class="clear"></div>
+
+    </div>
+
+</div>
+</div>
+{% endblock %}

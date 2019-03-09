@@ -1,0 +1,48 @@
+{% extends 'usercenter-base.html' %}
+{% block title %} 我的岗位 | 学生在线{% endblock %}
+
+{% block custom_bread %}
+        <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="{% url 'index' %}">首页</a>></li>
+                <li><a href="{% url 'users:user_info' %}">个人中心</a>></li>
+                <li>我的岗位</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+
+{% block right_content %}
+        <div class="right" >
+		<div class="personal_des Releasecont">
+			<div class="head">
+				<h1>我的岗位</h1>
+			</div>
+		</div>
+		<div class="personal_des permessage">
+			<div class="companycenter">
+				<div class="group_list brief">
+
+                    {% for user_job in user_jobs %}
+                    <div class="module1_5 box">
+                            <a href="{% url 'job:job_detail' user_job.id %}">
+                                <img width="214" height="190" class="scrollLoading" src="{{ MEDIA_URL }}{{ user_job.job.image }}"/>
+                            </a>
+                            <div class="des">
+                                <a href="{% url 'job:job_detail' user_job.job.id %}"><h2>{{ user_job.job.name }}</h2></a>
+                                <span class="fl">上岗日期：<i class="key">{{ user_job.job.do_time }}</i></span>
+                                <span class="fr">参与人数：{{ user_job.job.people}}</span>
+                            </div>
+                            <div class="bottom">
+                                <span class="fl">{{ user_job.job.name }}</span>
+                                <span class="delete-group fr jsDeleteJob" data-favid="{{ user_job.job.id }}"></span>
+                            </div>
+                        </div>
+{% endfor %}
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

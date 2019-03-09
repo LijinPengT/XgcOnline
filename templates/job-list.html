@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block titile %}
+工作岗位列表页 | 学生在线
+{% endblock %}
+
+{% load staticfiles %}
+<!--crumbs start-->
+{% block custom_bread %}
+    <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="{% url 'index' %}">首页</a>></li>
+                <li>工作岗位</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+    <section>
+	<div class="wp">
+		<div class="list" style="margin-top:0;">
+			<div class="left layout">
+				<div class="head">
+					<ul class="tab_header">
+						<li class="{% ifequal sort "people" %}active{% endifequal %}"><a href="?sort=students&keywords={{ search_keywords }}">参与人数</a></li>
+					</ul>
+				</div>
+                <div id="inWindow">
+                    <div class="tab_cont " id="content">
+					<div class="group_list">
+{% for job in all_job.object_list %}
+                            <div class="box">
+                                <a href="{% url 'job:job_detail' job.id %}">
+                                    <img width="280" height="350" class="scrollLoading" src="{{ MEDIA_URL }}{{ job.image }}"/>
+                                </a>
+                                <div class="des">
+                                    <a href="{% url 'job:job_detail' job.id %}">
+                                        <h2>{{ job.name }}</h2>
+                                    </a>
+                                    <span class="fl">上岗日期：<i class="key">{{ job.do_times }}</i></span>
+                                    <span class="fr">参加人数：{{ job.people }}&nbsp;&nbsp;</span>
+                                </div>
+                                <div class="bottom">
+                                    <a href="{% url 'job:job_detail' job.id %}"><span class="fl">来自{{ job.unit }}</span></a>
+                                </div>
+                            </div>
+
+{% endfor %}
+
+					</div>
+		 <div class="pageturn">
+            <ul class="pagelist">
+              {% if all_job.has_previous %}
+ <li class="long"><a href="?{{ all_job.previous_page_number.querystring }}" >上一页</a></li>
+             {% endif %}
+          {% for page in all_job.pages %}
+        {% if page %}
+            {% ifequal page all_job.number %}
+                   <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+            {% else %}
+<li><a href="?{{ page.querystring }}">{{ page }}</a></li>
+            {% endifequal %}
+        {% else %}
+            <li class="none"><a href="">...</a></li>
+        {% endif %}
+    {% endfor %}
+    {% if all_job.has_next %}
+    <li class="long"><a href="?{{ all_job.next_page_number.querystring }}">下一页</a></li>
+    {% endif %}
+            </ul>
+         </div>
+				</div>
+                </div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
